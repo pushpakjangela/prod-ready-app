@@ -5,9 +5,11 @@ public enum Permission {
     POST_UPDATE,
     POST_DELETE,
     POST_VIEW,
+    POST_ADMIN,
 
     USER_CREATE,
     USER_UPDATE,
     USER_DELETE,
-    USER_VIEW
+    USER_VIEW,
+    USER_ADMIN
 }

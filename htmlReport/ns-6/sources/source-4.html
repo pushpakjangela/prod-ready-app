@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PostController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pushpak.prod_ready_feature.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: PostController (com.pushpak.prod_ready_feature.controllers)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PostController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PostController$$SpringCGLIB$$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pushpak.prod_ready_feature.controllers;
+&nbsp;
+&nbsp;import com.pushpak.prod_ready_feature.dto.PostDto;
+&nbsp;import com.pushpak.prod_ready_feature.services.PostService;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.security.access.annotation.Secured;
+&nbsp;import org.springframework.security.access.prepost.PreAuthorize;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(path=&quot;/posts&quot;)
+&nbsp;@RequiredArgsConstructor
+&nbsp;
+&nbsp;public class PostController {
+&nbsp;    private final PostService postService;
+&nbsp;
+&nbsp;    @GetMapping(&quot;getAllPost&quot;)
+&nbsp;    @Secured(&quot;ROLE_USER&quot;)
+&nbsp;    public List&lt;PostDto&gt; getAllPosts() {
+<b class="fc">&nbsp;        return postService.getAllPosts();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/{postId}&quot;)
+&nbsp;//    @PreAuthorize(&quot;hasRole(&#39;USER&#39;) AND hasPermission(&#39;POST_VIEW&#39;)&quot;)
+&nbsp;    @PreAuthorize(&quot;@postSecurity.isPostOwner(#postId) &quot;)
+&nbsp;
+&nbsp;    public PostDto getPostById(@PathVariable Long postId){
+<b class="fc">&nbsp;        return postService.getPostById(postId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;createPost&quot;)
+&nbsp;    public PostDto createPost(@RequestBody PostDto postDto){
+<b class="fc">&nbsp;        return postService.createPost(postDto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/{postId}&quot;)
+&nbsp;    public PostDto updatePost(@RequestBody PostDto postDto,@PathVariable Long postId){
+<b class="fc">&nbsp;        return postService.updatePostById(postDto,postId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-08-23 19:51</div>
+</div>
+</body>
+</html>

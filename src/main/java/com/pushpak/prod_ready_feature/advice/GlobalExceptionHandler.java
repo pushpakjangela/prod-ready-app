@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import org.springframework.security.access.AccessDeniedException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -47,6 +49,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SessionNotFoundException.class)
     public ResponseEntity<ApiError> handleSessionNotFoundException(SessionNotFoundException sessionNotFoundException){
         ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, sessionNotFoundException.getLocalizedMessage());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleAccessDeniedException(AccessDeniedException accessDeniedException){
+        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN, accessDeniedException.getLocalizedMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 }

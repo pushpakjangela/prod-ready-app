@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GlobalExceptionHandler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pushpak.prod_ready_feature.advice</a>
+</div>
+
+<h1>Coverage Summary for Class: GlobalExceptionHandler (com.pushpak.prod_ready_feature.advice)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GlobalExceptionHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (2/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (3/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pushpak.prod_ready_feature.advice;
+&nbsp;
+&nbsp;import com.pushpak.prod_ready_feature.enums.Messages;
+&nbsp;import com.pushpak.prod_ready_feature.exception.ResourceNotFoundException;
+&nbsp;import com.pushpak.prod_ready_feature.exception.SessionNotFoundException;
+&nbsp;import com.pushpak.prod_ready_feature.exception.UserAlreadyExistsWithThisEmail;
+&nbsp;import com.pushpak.prod_ready_feature.exception.UserNotFoundException;
+&nbsp;import io.jsonwebtoken.JwtException;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.security.core.AuthenticationException;
+&nbsp;import org.springframework.web.bind.annotation.ExceptionHandler;
+&nbsp;import org.springframework.web.bind.annotation.RestControllerAdvice;
+&nbsp;
+&nbsp;import org.springframework.security.access.AccessDeniedException;
+&nbsp;
+&nbsp;@RestControllerAdvice
+<b class="fc">&nbsp;public class GlobalExceptionHandler {</b>
+&nbsp;    @ExceptionHandler(ResourceNotFoundException.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException){
+<b class="fc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, Messages.POST_NOT_FOUND.getMessage());</b>
+<b class="fc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(UserNotFoundException.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleUserNotFoundException(UserNotFoundException userNotFoundException){
+<b class="nc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, Messages.USER_NOT_FOUND_WITH_EMAIL.getMessage());</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(UserAlreadyExistsWithThisEmail.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleUserAlreadyExistsWithThisEmail(UserAlreadyExistsWithThisEmail userAlreadyExistsWithThisEmail){
+<b class="nc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, Messages.USER_ALREADY_EXISTS_WITH_THIS_EMAIL.getMessage());</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(AuthenticationException.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleAuthenticationException(AuthenticationException authenticationException){
+<b class="nc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, authenticationException.getLocalizedMessage());</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(JwtException.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleJwtException(JwtException jwtException){
+<b class="nc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, jwtException.getLocalizedMessage());</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(SessionNotFoundException.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleSessionNotFoundException(SessionNotFoundException sessionNotFoundException){
+<b class="nc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, sessionNotFoundException.getLocalizedMessage());</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ExceptionHandler(AccessDeniedException.class)
+&nbsp;    public ResponseEntity&lt;ApiError&gt; handleAccessDeniedException(AccessDeniedException accessDeniedException){
+<b class="nc">&nbsp;        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN, accessDeniedException.getLocalizedMessage());</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(apiError, apiError.getStatus());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-08-23 19:51</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SignUpDto</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.pushpak.prod_ready_feature.dto</a>
+</div>
+
+<h1>Coverage Summary for Class: SignUpDto (com.pushpak.prod_ready_feature.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">SignUpDto</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.pushpak.prod_ready_feature.dto;
+&nbsp;
+&nbsp;import com.pushpak.prod_ready_feature.enums.Permission;
+&nbsp;import com.pushpak.prod_ready_feature.enums.Role;
+&nbsp;import lombok.*;
+&nbsp;
+&nbsp;import java.util.Set;
+&nbsp;
+&nbsp;@AllArgsConstructor
+&nbsp;@NoArgsConstructor
+&nbsp;@Getter
+&nbsp;@Setter
+&nbsp;@Builder
+&nbsp;public class SignUpDto {
+&nbsp;    private String name;
+&nbsp;    private String email;
+&nbsp;    private String password;
+&nbsp;    private Set&lt;Role&gt; roles;
+&nbsp;    private Set&lt;Permission&gt; permissions;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-08-23 19:51</div>
+</div>
+</body>
+</html>
