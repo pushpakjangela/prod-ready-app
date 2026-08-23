@@ -4,10 +4,7 @@ import com.pushpak.prod_ready_feature.enums.Permission;
 import com.pushpak.prod_ready_feature.enums.Role;
 import com.pushpak.prod_ready_feature.utils.PermissionMapping;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +22,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class User implements UserDetails {
 
     @Id
@@ -41,9 +39,9 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @Enumerated(EnumType.STRING)
-//    private Set<Permission> permissions;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<Permission> permissions;
 
 
     @Override

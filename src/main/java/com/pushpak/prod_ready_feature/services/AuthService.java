@@ -46,7 +46,6 @@ public class  AuthService {
                 new UsernamePasswordAuthenticationToken(loginDto.getEmail(),loginDto.getPassword())
         );
         User user =(User) authentication.getPrincipal();
-        assert user != null;
         String accessToken =  jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
         sessionService.generateNewSession(user,refreshToken);

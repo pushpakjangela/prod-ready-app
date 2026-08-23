@@ -2,10 +2,7 @@ package com.pushpak.prod_ready_feature.dto;
 
 import com.pushpak.prod_ready_feature.enums.Permission;
 import com.pushpak.prod_ready_feature.enums.Role;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -13,6 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class UserDto {
     private Long id;
     private String name;
