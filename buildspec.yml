@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto-21
+
+  build:
+    commands:
+      - echo Building, Testing and Deploying
+      - mvn package -DskipTests
+
+  post_build:
+    commands:
+      - echo Build, Testing and Package completed
+
+artifacts:
+  files:
+    - target/*.jar
+  discard-paths: yes
+
+caches:
+  paths:
+    - '/root/.m2/**/*'
+

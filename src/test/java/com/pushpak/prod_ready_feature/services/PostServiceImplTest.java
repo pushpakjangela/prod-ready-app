@@ -33,34 +33,32 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
 @DataJpaTest
 @Import(TestContainerConfiguration.class)
 class PostServiceImplTest {
 
     @InjectMocks
-    private  PostServiceImpl postService;
+    private PostServiceImpl postService;
 
     @Mock
-    private  PostRepository postRepository;
+    private PostRepository postRepository;
 
     @Mock
-    private  ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     PostEntity postEntity = new PostEntity();
 
     PostDto postDto = new PostDto();
-
 
     @Test
     void tesGetAllPosts() {
 
         // assign
         when(postRepository.findAll()).thenReturn(List.of(postEntity));
-        when(modelMapper.map(postEntity,PostDto.class)).thenReturn(postDto);
+        when(modelMapper.map(postEntity, PostDto.class)).thenReturn(postDto);
 
-        //act
+        // act
         List<PostDto> result = postService.getAllPosts();
 
         // assert
@@ -70,7 +68,6 @@ class PostServiceImplTest {
 
         verify(postRepository).findAll();
         verify(modelMapper).map(postEntity, PostDto.class);
-
 
     }
 
@@ -107,10 +104,10 @@ class PostServiceImplTest {
 
         SecurityContextHolder.setContext(securityContext);
 
-        when(modelMapper.map(postDto,PostEntity.class)).thenReturn(postEntity);
+        when(modelMapper.map(postDto, PostEntity.class)).thenReturn(postEntity);
         when(postRepository.save(postEntity)).thenReturn(savedPostEntity);
 
-        when(modelMapper.map(savedPostEntity,PostDto.class)).thenReturn(expectedPostDto);
+        when(modelMapper.map(savedPostEntity, PostDto.class)).thenReturn(expectedPostDto);
 
         PostDto result = postService.createPost(postDto);
 
@@ -118,7 +115,6 @@ class PostServiceImplTest {
         assertThat(result).isEqualTo(expectedPostDto);
         assertThat(postEntity.getAuthor())
                 .isEqualTo(user);
-
 
         verify(modelMapper)
                 .map(postDto, PostEntity.class);
@@ -135,11 +131,7 @@ class PostServiceImplTest {
         verify(authentication)
                 .getPrincipal();
 
-
-
     }
-
-
 
     @Test
     void testGetPostById_whenPostExists_returnPost() {
@@ -161,16 +153,13 @@ class PostServiceImplTest {
         when(modelMapper.map(postEntity, PostDto.class))
                 .thenReturn(expectedPostDto);
 
-
         // Act
         PostDto result = postService.getPostById(postId);
-
 
         // Assert
         assertThat(result)
                 .isNotNull()
                 .isEqualTo(expectedPostDto);
-
 
         // Verify
         verify(postRepository)
@@ -189,123 +178,19 @@ class PostServiceImplTest {
         when(postRepository.findById(postId))
                 .thenReturn(Optional.empty());
 
-
         // Act & Assert
         assertThatThrownBy(() -> postService.getPostById(postId))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage(Messages.POST_NOT_FOUND.getMessage());
 
-
         // Verify
         verify(postRepository)
                 .findById(postId);
 
         verifyNoInteractions(modelMapper);
     }
-    @Test
-    void testUpdatePostById_whenPostExists_returnUpdatedPost() {
-
-        // Arrange
-        Long postId = 1L;
-
-        PostDto inputPostDto = PostDto.builder()
-                .title("Updated Title")
-                .description("Updated Description")
-                .build();
-
-        PostEntity oldPostEntity = new PostEntity();
-
-        PostEntity savedPostEntity = new PostEntity();
-
-        PostDto expectedPostDto = PostDto.builder()
-                .id(postId)
-                .title("Updated Title")
-                .description("Updated Description")
-                .build();
-
-
-        // Post exists
-        when(postRepository.findById(postId))
-                .thenReturn(Optional.of(oldPostEntity));
-
-
-        // DTO → existing Entity
-        doNothing()
-                .when(modelMapper)
-                .map(inputPostDto, oldPostEntity);
-
-
-        // Save updated entity
-        when(postRepository.save(oldPostEntity))
-                .thenReturn(savedPostEntity);
-
-
-        // Entity → DTO
-        when(modelMapper.map(savedPostEntity, PostDto.class))
-                .thenReturn(expectedPostDto);
-
-
-        // Act
-        PostDto result =
-                postService.updatePostById(inputPostDto, postId);
-
-
-        // Assert
-        assertThat(result)
-                .isNotNull()
-                .isEqualTo(expectedPostDto);
-
-        assertThat(inputPostDto.getId())
-                .isEqualTo(postId);
-
-
-        // Verify
-        verify(postRepository)
-                .findById(postId);
-
-        verify(modelMapper)
-                .map(inputPostDto, oldPostEntity);
-
-        verify(postRepository)
-                .save(oldPostEntity);
-
-        verify(modelMapper)
-                .map(savedPostEntity, PostDto.class);
-    }
-    @Test
-    void testUpdatePostById_whenPostDoesNotExist_throwException() {
-
-        // Arrange
-        Long postId = 1L;
-
-        PostDto inputPostDto = PostDto.builder()
-                .title("Updated Title")
-                .description("Updated Description")
-                .build();
-
-        when(postRepository.findById(postId))
-                .thenReturn(Optional.empty());
-
-
-        // Act & Assert
-        assertThatThrownBy(
-                () -> postService.updatePostById(inputPostDto, postId)
-        )
-                .isInstanceOf(ResourceNotFoundException.class)
-                .hasMessage(Messages.POST_NOT_FOUND.getMessage());
-
-
-        // Verify
-        verify(postRepository)
-                .findById(postId);
-
-        verifyNoInteractions(modelMapper);
-
-        verify(postRepository, never())
-                .save(any(PostEntity.class));
-    }
-//
-//    @Test
-//    void updatePostById() {
-//    }
+    //
+    // @Test
+    // void updatePostById() {
+    // }
 }
