@@ -3,14 +3,14 @@ package com.pushpak.prod_ready_feature;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration
 public class TestContainerConfiguration {
      @Bean
     @ServiceConnection
-    public MySQLContainer<?> mysql() {
-        return new MySQLContainer<>(DockerImageName.parse("mysql:8.0"));
+    public MSSQLServerContainer<?> mssql() {
+        return new MSSQLServerContainer<>(DockerImageName.parse("mcr.microsoft.com/mssql/server:2022-latest"));
     }
 }
