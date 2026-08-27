@@ -28,7 +28,7 @@ import static com.pushpak.prod_ready_feature.enums.Role.CREATOR;
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
-    public static final String[] publicRoutes = {"/auth/**","/error","/home.html"};
+    public static final String[] publicRoutes = {"/auth/**","/error","/home.html","/"};
 
     private final JwtFilter jwtFilter;
     @Bean
