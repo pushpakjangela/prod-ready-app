@@ -3,23 +3,26 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto-21
+      java: corretto21
 
   build:
     commands:
-      - echo Building, Testing and Deploying
-      - mvn package -DskipTests
+      - echo "Java version:"
+      - java -version
+      - echo "Maven version:"
+      - mvn -version
+      - echo "Building application..."
+      - mvn clean package -DskipTests
 
   post_build:
     commands:
-      - echo Build, Testing and Package completed
+      - echo "Build completed successfully"
 
 artifacts:
   files:
     - target/*.jar
   discard-paths: yes
 
-caches:
+cache:
   paths:
     - '/root/.m2/**/*'
-
